@@ -1,0 +1,19 @@
+[
+  { "id": "castor", "label": "Castors" },
+  { "id": "baseJack", "label": "Base jacks" },
+  { "id": "baseCollar", "label": "Base collars" },
+  { "id": "standard", "label": "Standards" },
+  { "id": "ledger", "label": "Ledgers" },
+  { "id": "uLedger", "label": "U-ledgers" },
+  { "id": "hDiagonal", "label": "Horizontal diagonals" },
+  { "id": "vDiagonal", "label": "Vertical diagonals" },
+  { "id": "deck", "label": "Decks" },
+  { "id": "accessDeck", "label": "Access / hatch decks" },
+  { "id": "toeBoard", "label": "Toe boards" },
+  { "id": "gate", "label": "Gates" },
+  { "id": "chain", "label": "Chains" },
+  { "id": "ladder", "label": "Ladders" },
+  { "id": "ladderHook", "label": "Ladder hooks" },
+  { "id": "stabilizer", "label": "Stabilizers" },
+  { "id": "other", "label": "Other" }
+]

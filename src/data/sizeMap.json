@@ -1,0 +1,9 @@
+[
+  { "label": "2'", "ft": 2, "m": 0.73, "aliases": [], "verify": true },
+  { "label": "3'", "ft": 3, "m": 1.09, "aliases": ["3.5"], "verify": true },
+  { "label": "4'", "ft": 4, "m": 1.40, "aliases": [], "verify": true },
+  { "label": "5'", "ft": 5, "m": 1.57, "aliases": [], "verify": true },
+  { "label": "7'", "ft": 7, "m": 2.07, "aliases": [], "verify": true },
+  { "label": "8'", "ft": 8, "m": 2.57, "aliases": [], "verify": true },
+  { "label": "10'", "ft": 10, "m": 3.07, "aliases": [], "verify": true }
+]

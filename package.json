@@ -1,0 +1,28 @@
+{
+  "name": "scaffold-loadout",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Scaffold LoadOut — Layher Allround (pinlock) pick lists from yard callouts",
+  "license": "MIT",
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "report:m2": "tsx scripts/m2-report.ts",
+    "check": "npm run typecheck && npm run lint && npm test"
+  },
+  "dependencies": {
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.4",
+    "@types/node": "^22.19.1",
+    "eslint": "^9.39.5",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.72.0",
+    "vitest": "^3.2.7"
+  }
+}
