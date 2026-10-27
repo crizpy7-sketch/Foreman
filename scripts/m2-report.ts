@@ -76,7 +76,10 @@ function bomTable(v: VariantResult, d: EngineData): string {
     l.missing ? 'MISSING' : l.verify ? 'verify' : '',
     l.explanation.replace(/^.*? = /, ''),
   ]);
-  const weight = v.bom.weightComplete ? formatWeight(v.bom.weightKg, d.settings.weightUnit) : 'weight incomplete';
+  const noWeight = v.bom.lines.filter((l) => l.weightKg === null).length;
+  const weight = v.bom.weightComplete
+    ? formatWeight(v.bom.weightKg, d.settings.weightUnit)
+    : `≥ ${formatWeight(v.bom.weightKg, d.settings.weightUnit)} · weight incomplete (${noWeight} line${noWeight === 1 ? '' : 's'} without a weight)`;
   return `${table(['Qty', 'Part', 'Flag', 'Why'], rows)}\nTotal: ${v.bom.pieces} pieces · ${weight}`;
 }
 
@@ -104,7 +107,10 @@ function report(): string {
   const d = loadSeed();
   const out: string[] = [];
   out.push('# Scaffold LoadOut — M2 checkpoint report');
-  out.push('All data is seed data (verify: true everywhere). Weights are unknown, so totals say "weight incomplete".');
+  out.push(
+    'Catalog: Layher Allround Catalogus & Prijslijst 2025/2026 (article numbers + weights, source URL on every part). ' +
+      '"verify" = not in that catalogue, or a yard choice still to confirm.',
+  );
   out.push(
     `Settings: H means ${d.settings.heightMeans}, pitch ${d.settings.pitch} m, base offsets rolling ${d.settings.baseOffsetRolling} / stationary ${d.settings.baseOffsetStationary} m, ` +
       `rounding ${d.settings.rounding}, gate "${d.settings.gateType}", diagonal at access face "${d.settings.diagonalAccess}".`,

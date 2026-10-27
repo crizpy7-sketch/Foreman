@@ -38,8 +38,10 @@ describe('variant enumeration', () => {
     const layouts = new Set([...set.variants, ...set.notPossible].map((v) => v.label.split(' · ')[0]));
     expect(layouts.has("10' × 5'")).toBe(true);
     expect(layouts.has("2×5' × 5'")).toBe(true);
-    const tenBay = set.variants.find((v) => v.label.startsWith("10' × 5'"))!;
+    // One 10' bay, decks running 5': 9 decks, but Layher lists no 3.07 lift-off preventer.
+    const tenBay = [...set.variants, ...set.notPossible].find((v) => v.label === "10' × 5' · Ladder on 10' side · decks run 5'")!;
     expect(qtys(tenBay)['deck-0.32x1.57']).toBe(9);
+    expect(tenBay.missingParts).toEqual(["Lift-off preventers 10' (3.07) — not in catalog"]);
   });
 
   it('caps at maxVariants and sorts by fewest pieces within a layout', () => {

@@ -20,7 +20,8 @@ import { enumerateVariants } from './variants';
 const d = seed();
 const set = enumerateVariants(callout('5x4x8 rolling', d), d);
 const v4 = set.variants.find((v) => v.label.startsWith("Ladder on 4'"))!;
-const v5 = set.variants.find((v) => v.label.startsWith("Ladder on 5'"))!;
+// Same build, taller: the calculated base moves under the user's edits.
+const tall = enumerateVariants(callout('5x4x16 rolling', d), d).variants.find((v) => v.label.startsWith("Ladder on 4'"))!;
 const base = v4.bom;
 
 describe('overrides', () => {
@@ -33,8 +34,8 @@ describe('overrides', () => {
   it('set qty, swap, remove, note, add part, add free text', () => {
     let ov = emptyOverrides();
     ov = setQty(ov, base, 'ledger-1.57', 10);
-    ov = swapPart(ov, base, 'gate-1.40', 'chain');
-    ov = removeLine(ov, base, 'ladder-hook');
+    ov = swapPart(ov, base, 'toeboard-1.40', 'toeboard-1.57');
+    ov = removeLine(ov, base, 'ladder-fixing');
     ov = setNote(ov, base, 'castor', 'use the new castors');
     ov = addPart(ov, 'a1', 'stabilizer', 2);
     ov = addFreeText(ov, 'a2', 'Tie-down straps', 4);
@@ -45,15 +46,15 @@ describe('overrides', () => {
     expect(line('ledger-1.57').qty).toBe(10);
     expect(line('ledger-1.57').calcQty).toBe(8);
     expect(line('ledger-1.57').edited).toBe(true);
-    expect(line('gate-1.40').partId).toBe('chain');
-    expect(line('gate-1.40').swappedFrom).toBe("Gate 4'");
-    expect(line('ladder-hook').removed).toBe(true);
+    expect(line('toeboard-1.40').partId).toBe('toeboard-1.57');
+    expect(line('toeboard-1.40').swappedFrom).toBe("Toe board 4'");
+    expect(line('ladder-fixing').removed).toBe(true);
     expect(line('castor').note).toBe('use the new castors');
-    expect(line('a1').label).toBe('Stabilizer');
+    expect(line('a1').label).toBe('Stabilizer (generic)');
     expect(line('a2').label).toBe('Tie-down straps');
     expect(line('a2').qty).toBe(6);
     expect(line('a2').note).toBe('ratchet type');
-    expect(f.pieces).toBe(base.pieces + 2 - 2 + 2 + 6);
+    expect(f.pieces).toBe(base.pieces + 2 - 1 + 2 + 6);
     expect(f.conflicts).toBe(0);
   });
 
@@ -65,33 +66,35 @@ describe('overrides', () => {
   });
 
   it('keeps user edits when the base moves and flags the conflict', () => {
-    // Edit made on the 4'-side variant, then the access toggle moves to the 5' side.
+    // Edit made on the 8' tower, then the height changes to 16'.
     const ov = setQty(emptyOverrides(), base, 'ledger-1.40', 5);
-    const f = applyOverrides(v5.bom, ov, d);
+    const f = applyOverrides(tall.bom, ov, d);
     const l = f.lines.find((x) => x.key === 'ledger-1.40')!;
     expect(l.qty).toBe(5);
-    expect(l.calcQty).toBe(6);
-    expect(l.conflict).toMatch(/changed 4 → 6/);
+    expect(l.calcQty).toBe(10);
+    expect(l.conflict).toMatch(/changed 6 → 10/);
     expect(f.conflicts).toBe(1);
   });
 
   it('keeps edits for lines that are no longer calculated', () => {
-    const ov = setQty(emptyOverrides(), base, 'gate-1.40', 2);
-    const f = applyOverrides(v5.bom, ov, d);
-    const l = f.lines.find((x) => x.key === 'gate-1.40')!;
+    const ov = setQty(emptyOverrides(), tall.bom, 'stabilizer', 2);
+    const f = applyOverrides(base, ov, d);
+    const l = f.lines.find((x) => x.key === 'stabilizer')!;
     expect(l.qty).toBe(2);
     expect(l.conflict).toMatch(/No longer calculated/);
   });
 
   it('a note alone never conflicts', () => {
     const ov = setNote(emptyOverrides(), base, 'ledger-1.40', 'check');
-    expect(applyOverrides(v5.bom, ov, d).conflicts).toBe(0);
+    expect(applyOverrides(tall.bom, ov, d).conflicts).toBe(0);
   });
 
   it('diff shows only lines that differ', () => {
-    const rows = diffLists(v4.bom.lines, v5.bom.lines);
-    const keys = rows.map((r) => r.key).sort();
-    expect(keys).toEqual(['gate-1.40', 'gate-1.57', 'ledger-1.40', 'ledger-1.57']);
-    expect(rows.find((r) => r.key === 'ledger-1.57')).toMatchObject({ a: 8, b: 6 });
+    const rows = diffLists(v4.bom.lines, tall.bom.lines);
+    const keys = rows.map((r) => r.key);
+    expect(keys).toContain('stabilizer');
+    expect(keys).not.toContain('castor');
+    expect(rows.find((r) => r.key === 'ledger-1.40')).toMatchObject({ a: 6, b: 10 });
+    expect(diffLists(v4.bom.lines, v4.bom.lines)).toEqual([]);
   });
 });

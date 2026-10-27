@@ -10,7 +10,7 @@ const base: Omit<VariantSpec, 'splitL' | 'splitW'> = {
   accessType: 'ladder',
   accessAxis: 'W',
   spanAxis: 'L',
-  gateType: 'gate',
+  gateType: 'railsStay',
   diagonalAccess: 'keep',
   standardsComboIndex: 0,
   splitRank: 0,
@@ -32,26 +32,30 @@ describe('5x4x8 rolling · ladder on 4\' side · decks run 5\'', () => {
 
   it('ledgers, U-ledgers, decks', () => {
     expect(q['ledger-1.57']).toBe(8); // base, deck, mid, top on both long sides
-    expect(q['ledger-1.40']).toBe(4); // base ×2 + guardrails on the non-access short side ×2
+    expect(q['ledger-1.40']).toBe(6); // base, mid, top on both short sides (rails stay at the ladder)
     expect(q['uledger-1.40']).toBe(2);
+    expect(q['liftoff-1.40']).toBe(2); // one per deck U-ledger
     expect(q['deck-0.32x1.57']).toBe(4);
     expect(q['hdiag-1.57x1.40']).toBe(1);
   });
 
-  it('guardrail gate, toe boards, diagonals, ladder + hooks', () => {
-    expect(q['gate-1.40']).toBe(1);
+  it('toe boards, diagonals, ladder + fixing', () => {
     expect(q['toeboard-1.57']).toBe(2);
     expect(q['toeboard-1.40']).toBe(2);
     expect(q['vdiag-1.57']).toBe(2);
     expect(q['vdiag-1.40']).toBe(2);
     expect(q['ladder-2.0']).toBe(1);
-    expect(q['ladder-hook']).toBe(2);
+    expect(q['ladder-fixing']).toBe(1);
     expect(q['stabilizer']).toBeUndefined();
   });
 
   it('totals and weight completeness', () => {
-    expect(v.bom.pieces).toBe(43);
+    expect(v.bom.pieces).toBe(45);
+    // The 1.57×1.40 horizontal diagonal is not in the Layher catalogue, so it has no weight.
     expect(v.bom.weightComplete).toBe(false);
+    const known = v.bom.lines.filter((l) => l.weightKg !== null).reduce((s, l) => s + l.weightKg! * l.qty, 0);
+    expect(v.bom.weightKg).toBeCloseTo(known);
+    expect(v.bom.lines.filter((l) => l.weightKg === null).map((l) => l.partId)).toEqual(['hdiag-1.57x1.40']);
     expect(v.possible).toBe(true);
     expect(v.notes[0]).toBe(`Deck 8'-0" (asked 8') · top rail 11'-4"`);
   });
@@ -66,7 +70,7 @@ describe('5x4x8 rolling · ladder on 4\' side · decks run 5\'', () => {
     for (const l of v.bom.lines) {
       expect(l.explanation.startsWith(`${l.label} × ${l.qty} = `)).toBe(true);
       expect(l.contributions.reduce((s, c) => s + c.qty, 0)).toBe(l.qty);
-      expect(l.verify).toBe(true);
+      expect(l.verify).toBe(seed().catalog.find((p) => p.id === l.partId)!.verify);
     }
   });
 
@@ -82,21 +86,21 @@ describe('5x4x8 rolling · ladder on 4\' side · decks run 5\'', () => {
 });
 
 describe('rule settings move the list', () => {
-  it('ladder on 5\' side swaps gate and guardrail sizes', () => {
-    const q = qtys(run('5x4x8 rolling', { accessAxis: 'L' }));
-    expect(q['gate-1.57']).toBe(1);
-    expect(q['ledger-1.57']).toBe(6);
-    expect(q['ledger-1.40']).toBe(6);
+  it('gate replaces both rails at the ladder bay — Layher only makes a 0.73 gate', () => {
+    const v = run('5x2x8 rolling', { splitW: one(0.73, "2'"), gateType: 'gate' });
+    const q = qtys(v);
+    expect(v.possible).toBe(true);
+    expect(q['gate-0.73']).toBe(1);
+    expect(q['ledger-0.73']).toBe(4); // base ×2 + rails on the non-access short side ×2
+    const wide = run('5x4x8 rolling', { gateType: 'gate' });
+    expect(wide.possible).toBe(false);
+    expect(wide.missingParts.join()).toMatch(/Gates 4' \(1\.40\) — not in catalog/);
   });
 
-  it('gate type: chain and rails stay', () => {
+  it('gate type: chain', () => {
     const chain = qtys(run('5x4x8 rolling', { gateType: 'chain' }));
     expect(chain['chain']).toBe(2);
-    expect(chain['gate-1.40']).toBeUndefined();
     expect(chain['ledger-1.40']).toBe(4);
-    const rails = qtys(run('5x4x8 rolling', { gateType: 'railsStay' }));
-    expect(rails['ledger-1.40']).toBe(6);
-    expect(rails['gate-1.40']).toBeUndefined();
   });
 
   it('diagonal access: move keeps the count, omit drops one', () => {
@@ -152,8 +156,8 @@ describe('rule settings move the list', () => {
     expect(v.possible).toBe(true);
     expect(q['accessdeck-1.57']).toBe(1);
     expect(q['deck-0.32x1.57']).toBe(2);
-    expect(q['ladder-2.0']).toBe(1);
-    expect(q['gate-1.40']).toBeUndefined();
+    expect(q['accessladder-2.00']).toBe(1);
+    expect(q['ladder-2.0']).toBeUndefined();
     expect(q['ledger-1.40']).toBe(6); // rails stay on hatch towers
     expect(v.bom.lines.find((l) => l.partId === 'deck-0.32x1.57')!.explanation).toMatch(/− 2 \(Hatch deck \(replaces decks\)\)/);
   });
@@ -163,7 +167,7 @@ describe('rule settings move the list', () => {
     d.catalog.find((p) => p.id === 'accessdeck-1.57')!.active = true;
     const v = run('5x4x16 rolling', { accessType: 'hatch' }, d);
     expect(v.possible).toBe(true);
-    expect(qtys(v)['ladder-2.0']).toBe(2);
+    expect(qtys(v)['accessladder-2.00']).toBe(2);
     expect(v.notes).toContain('Short lift 0→1 (0.50 m) gets ledgers but no hatch ladder.');
   });
 

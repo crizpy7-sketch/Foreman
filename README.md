@@ -12,6 +12,6 @@ npm run report:m2   # print the M2 checkpoint lists (also: -- --out docs/M2-REPO
 ```
 
 - `src/engine`: pure TypeScript engine (parser → geometry → placement rules → members → catalog parts → BOM, variants, overrides)
-- `src/data`: seed JSON (catalog, size map, deck fill, settings, rules) + Zod schemas
+- `src/data`: seed JSON (catalog, size map, deck fill, settings, rules) + Zod schemas. Article numbers and weights come from the official Layher Allround catalogue 2025/26; `scripts/gen-catalog.mjs` regenerates `catalog.json` and holds the rows exactly as copied.
 
 > Material estimate only — build per Layher instructions, site rules and your competent person.

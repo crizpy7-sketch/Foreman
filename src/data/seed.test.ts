@@ -11,12 +11,12 @@ describe('seed data', () => {
     expect(() => engineDataSchema.parse(d)).not.toThrow();
   });
 
-  it('never invents Layher data: no article numbers or weights without a source', () => {
+  it('never invents Layher data: article numbers and weights only with an official Layher source', () => {
     for (const p of d.catalog) {
-      if (p.articleNo !== null || p.weightKg !== null) expect(p.source).toMatch(/^https?:\/\//);
-      expect(p.verify).toBe(true);
+      if (p.articleNo !== null || p.weightKg !== null) expect(p.source, p.id).toMatch(/^https:\/\/layher-content-prod\.s3\./);
+      if (!p.verify) expect(p.articleNo, p.id).not.toBeNull();
+      if (p.articleNo === null) expect(p.verify, p.id).toBe(true);
     }
-    expect(d.sizeMap.every((s) => s.verify)).toBe(true);
     expect(d.deckFill.every((s) => s.verify)).toBe(true);
     expect(d.rules.every((r) => r.verify)).toBe(true);
   });
@@ -25,7 +25,7 @@ describe('seed data', () => {
     const off = d.catalog.filter((p) => !p.active).map((p) => p.id);
     expect(off).toContain('deck-0.32x1.40');
     expect(off.filter((id) => id.startsWith('deck-0.19'))).toHaveLength(7);
-    expect(off.filter((id) => id.startsWith('accessdeck-'))).toHaveLength(7);
+    expect(off.filter((id) => id.startsWith('accessdeck-'))).toHaveLength(4);
   });
 
   it('every rule expression is valid', () => {
