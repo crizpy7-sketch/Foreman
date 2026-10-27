@@ -10,6 +10,7 @@ permissions:
   contents: read
   pages: write
   id-token: write
+  actions: read
 
 concurrency:
   group: pages-${{ github.ref }}
@@ -40,5 +41,19 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      # While the repo's Pages source is still "Deploy from branch", GitHub also publishes the raw
+      # branch on every push. Wait for that to finish so the built app is always deployed last.
+      # (Switch Settings → Pages → Source to "GitHub Actions" to stop the branch publish entirely.)
+      - name: Wait for the branch Pages publish
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          for i in $(seq 1 40); do
+            pending=$(gh api "repos/${{ github.repository }}/actions/runs?head_sha=${{ github.sha }}&per_page=50" \
+              --jq '[.workflow_runs[] | select(.name == "pages build and deployment" and .status != "completed")] | length')
+            if [ "$pending" = "0" ]; then exit 0; fi
+            echo "Branch publish still running ($pending) — waiting"
+            sleep 15
+          done
       - id: deployment
         uses: actions/deploy-pages@v4
