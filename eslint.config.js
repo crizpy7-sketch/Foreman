@@ -1,8 +1,9 @@
 import js from '@eslint/js';
+import reactHooks from 'eslint-plugin-react-hooks';
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
-  { ignores: ['dist', 'node_modules', 'index.html', 'coverage'] },
+  { ignores: ['dist', 'dev-dist', 'node_modules', 'coverage', 'public', 'test-results', 'playwright-report'] },
   js.configs.recommended,
   ...tseslint.configs.recommended,
   {
@@ -11,6 +12,11 @@ export default tseslint.config(
       'no-new-func': 'error',
       'no-implied-eval': 'error',
     },
+  },
+  {
+    files: ['src/ui/**/*.tsx'],
+    plugins: { 'react-hooks': reactHooks },
+    rules: reactHooks.configs.recommended.rules,
   },
   {
     files: ['scripts/**/*.mjs'],

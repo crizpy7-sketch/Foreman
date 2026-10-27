@@ -96,5 +96,17 @@ I couldn't reach Layher's English or US catalogue from this environment (blocked
 ## Not yet applied
 - The spares setting exists but is off and not used by the engine yet.
 
+## App behaviour (M3–M5)
+- **Undo**: catalog, rule and setting edits, list edits, toggles and load changes all go into one 20-step undo. Text fields commit on leaving the field, so one edit is one undo step.
+- Loading checkboxes on a list are for ticking off while you load. They aren't saved.
+- **My version** is keyed by the callout without its qty, plus the build. It is saved with **Save as my version** and removed with **Remove my version**.
+- A **share link** carries the towers (callout, build, qty, edits) and the job details, compressed into the URL. The receiver recalculates with *their* catalog and rules; the sender's edits are kept.
+- Opening a job from **Jobs** saves the current load first (if it has towers), so nothing is lost.
+- The rules list for Rolling or Stationary is worked out by evaluating each rule's condition against the live-test tower with that type.
+- **Seed updates**: while you haven't edited the catalog, rules or settings, a newer app version brings its new seed data. Once you edit, your data is kept. **Settings → Reset to seed data** brings the seed back (jobs are kept).
+- **Spares**: the setting is there but not applied yet.
+- **Mic**: Web Speech API (en-US). Where it's unavailable (typically an installed iPhone app), the mic button focuses the box and points you to the keyboard's dictation.
+- **Deploy**: GitHub Pages through `.github/workflows/deploy.yml`. Pages has to be switched to "GitHub Actions" in the repo settings once.
+
 ## Repository
-- The existing `index.html` (Foreman Time Charge Pro) is unchanged. In M3 the Vite app needs the root `index.html`, so I plan to move that page to `public/time-charge.html`, where it will still be served.
+- The old `index.html` (Foreman Time Charge Pro) moved, unchanged, to `public/time-charge.html` so the app can use the root `index.html`. It is still served at `time-charge.html` and linked from Settings.

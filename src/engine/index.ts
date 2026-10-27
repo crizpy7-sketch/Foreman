@@ -8,8 +8,10 @@ export * from './rules';
 export * from './bom';
 export * from './variants';
 export * from './overrides';
-
-export const FOOTER = 'Material estimate only — build per Layher instructions, site rules and your competent person.';
+export * from './load';
+export * from './share';
+export * from './validateRules';
+export * from './footer';
 
 /** Key for "Save as my version": exact canonical callout + variant. */
 export function myVersionKey(canonical: string, variantKey: string): string {

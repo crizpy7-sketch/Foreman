@@ -1,4 +1,5 @@
 // Core data and result types for the LoadOut engine. Plain TypeScript, no runtime deps.
+import type { VariantSpec } from './variants';
 
 export type ScaffoldType = 'rolling' | 'stationary';
 export type AccessType = 'ladder' | 'hatch';
@@ -368,6 +369,8 @@ export interface VariantResult {
   possible: boolean;
   /** Closeness rank of the bay split (0 = closest); variants sort by this, then piece count. */
   splitRank: number;
+  /** The inputs that produced this variant (to reopen, toggle or save it). */
+  spec: VariantSpec;
   /** Ground to top of the chosen standards (m); null when no standards combo fits. */
   overallHeight: number | null;
 }

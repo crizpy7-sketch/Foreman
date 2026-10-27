@@ -14,11 +14,13 @@ SPEC.md is the source of truth. ASSUMPTIONS.md logs every default not yet confir
 ## Layout
 - `src/engine` — parser, expression evaluator, geometry, rules → members → parts → BOM, variants, overrides
 - `src/data` — seed JSON + Zod schemas
-- `src/db`, `src/ui` — added in M3
-- `scripts/m2-report.ts` — prints the M2 checkpoint tables
+- `src/db` — Dexie (IndexedDB): engine data, current load, jobs, my versions, rule versions, recents
+- `src/ui` — React + Tailwind screens; `store.ts` holds state and the 20-step undo (every change goes through `act`)
+- `scripts/m2-report.ts` — prints the checkpoint tables; `scripts/gen-catalog.mjs` — regenerates the catalog from the Layher catalogue rows
+- `tests/e2e` — Playwright smoke test (incl. offline)
 
 ## Commands
-`npm run check` (typecheck + lint + tests) must pass before every commit. `npm run report:m2` prints the checkpoint lists.
+`npm run check` (typecheck + lint + tests) must pass before every commit; run `npm run test:e2e` after UI changes. `npm run build` must succeed.
 
-## UI (M3+)
+## UI
 Phone-first, one-handed, glove-friendly (48px+ targets), high contrast, dark mode. Show parts as the yard says them with metric small: "Ledger 5' (1.57)".

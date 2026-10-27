@@ -117,6 +117,7 @@ export function computeVariant(callout: Callout, d: EngineData, spec: VariantSpe
     missingParts,
     possible: missingParts.length === 0 && run.errors.length === 0,
     splitRank: spec.splitRank,
+    spec,
     overallHeight,
   };
 }
