@@ -1,7 +1,7 @@
 {
   "defaultType": "rolling",
   "pitch": 0.5,
-  "heightMeans": "deck",
+  "heightMeans": "topOfStandards",
   "rounding": "nearest",
   "baseOffsetRolling": 0.45,
   "baseOffsetStationary": 0.3,

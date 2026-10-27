@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { explain } from './bom';
 import { findCombos } from './catalog';
-import { callout, qtys, seed } from './testkit';
+import { callout, deckSeed as seed, qtys } from './testkit';
 import type { BaySplit, EngineData } from './types';
 import { computeVariant, type VariantSpec } from './variants';
 
@@ -57,7 +57,7 @@ describe('5x4x8 rolling · ladder on 4\' side · decks run 5\'', () => {
     expect(v.bom.weightKg).toBeCloseTo(known);
     expect(v.bom.lines.filter((l) => l.weightKg === null).map((l) => l.partId)).toEqual(['hdiag-1.57x1.40']);
     expect(v.possible).toBe(true);
-    expect(v.notes[0]).toBe(`Deck 8'-0" (asked 8') · top rail 11'-4"`);
+    expect(v.notes[0]).toBe(`Deck 8'-0" (asked 8') · top rail 11'-4" · overall 11'-4"`);
   });
 
   it('every line explains itself', () => {

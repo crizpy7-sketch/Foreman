@@ -367,4 +367,6 @@ export interface VariantResult {
   possible: boolean;
   /** Closeness rank of the bay split (0 = closest); variants sort by this, then piece count. */
   splitRank: number;
+  /** Ground to top of the chosen standards (m); null when no standards combo fits. */
+  overallHeight: number | null;
 }

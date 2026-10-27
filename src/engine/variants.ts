@@ -79,10 +79,21 @@ export function computeVariant(callout: Callout, d: EngineData, spec: VariantSpe
     );
   }
   const missingParts = [...new Set(bom.lines.filter((l) => l.missing).map((l) => l.missing!))];
-  const notes = [
-    `Deck ${formatFtIn(tower.deckHeight)} (asked ${callout.H.m !== null ? `${callout.H.m}m` : formatFeetCall(callout.H.ft!)}) · top rail ${formatFtIn(tower.topRailHeight)}`,
-    ...run.notes,
-  ];
+  const combos = run.standardsCombos;
+  const chosen = combos[Math.min(Math.max(spec.standardsComboIndex, 0), combos.length - 1)];
+  // Overall height = ground to top of standards (base offset + standards stack).
+  const overallHeight = chosen ? Math.round((tower.levels.baseOffset + chosen.total) * 1e6) / 1e6 : null;
+  const asked = `asked ${callout.H.m !== null ? `${callout.H.m}m` : formatFeetCall(callout.H.ft!)}`;
+  const deck = formatFtIn(tower.deckHeight);
+  const top = formatFtIn(tower.topRailHeight);
+  const overall = overallHeight !== null ? formatFtIn(overallHeight) : '?';
+  const heightLine =
+    d.settings.heightMeans === 'topOfStandards'
+      ? `Overall ${overall} (${asked}) · deck ${deck} · top rail ${top}`
+      : d.settings.heightMeans === 'topRail'
+        ? `Top rail ${top} (${asked}) · deck ${deck} · overall ${overall}`
+        : `Deck ${deck} (${asked}) · top rail ${top} · overall ${overall}`;
+  const notes = [heightLine, ...run.notes];
   if (spec.splitL.bays.length > 1 || spec.splitW.bays.length > 1 || !spec.splitL.exact || !spec.splitW.exact) {
     notes.push(`Footprint ${formatFtIn(tower.totalL)} × ${formatFtIn(tower.totalW)} (${formatM(tower.totalL)} × ${formatM(tower.totalW)} m)`);
   }
@@ -98,6 +109,7 @@ export function computeVariant(callout: Callout, d: EngineData, spec: VariantSpe
     missingParts,
     possible: missingParts.length === 0 && run.errors.length === 0,
     splitRank: spec.splitRank,
+    overallHeight,
   };
 }
 

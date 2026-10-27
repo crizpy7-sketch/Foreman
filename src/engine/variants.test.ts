@@ -80,3 +80,21 @@ describe('labels', () => {
     expect(new Set(labels).size).toBe(labels.length);
   });
 });
+
+describe('overall height', () => {
+  it('leads with overall height and reports ground to top of the chosen standards', () => {
+    const d = seed();
+    const v = enumerateVariants(callout('5x4x8 rolling', d), d).variants[0]!;
+    expect(v.notes[0]).toBe(`Overall 8'-0" (asked 8') · deck 4'-9" · top rail 8'-0"`);
+    expect(v.overallHeight).toBeCloseTo(0.45 + 2.0);
+    expect(qtys(v)['standard-2.0']).toBe(4);
+  });
+
+  it('5x4x16 rolling: deck 13\'-0", ratio 2.82:1 — under the 3:1 limit, no stabilizers', () => {
+    const d = seed();
+    const v = enumerateVariants(callout('5x4x16 rolling', d), d).variants[0]!;
+    expect(v.notes[0]).toBe(`Overall 16'-3" (asked 16') · deck 13'-0" · top rail 16'-3"`);
+    expect(v.tower.overRatio).toBe(false);
+    expect(qtys(v)['stabilizer']).toBeUndefined();
+  });
+});

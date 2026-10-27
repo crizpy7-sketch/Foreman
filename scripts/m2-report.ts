@@ -24,7 +24,7 @@ interface Checkpoint {
 const CHECKPOINTS: Checkpoint[] = [
   { callout: '5x4x8 rolling', expect: 'every variant' },
   { callout: '5x4x8 stationary', expect: 'stationary base' },
-  { callout: '5x4x16 rolling', expect: 'should trip the ratio warning' },
+  { callout: '5x4x16 rolling', expect: 'ratio check (H = overall height; ratio uses deck height per the brief)' },
   { callout: '6x4x8 rolling', expect: "should explain there's no 6' and offer the closest builds" },
   {
     callout: '10x5x8 stationary',

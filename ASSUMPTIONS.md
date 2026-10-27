@@ -43,10 +43,13 @@ I couldn't reach Layher's English or US catalogue from this environment (blocked
 - Words the parser doesn't understand are shown as "Ignored: …" rather than causing an error.
 
 ## Heights and levels
-- **VERIFY**: `heightMeans = deck`. The called H is the deck height.
+- **Confirmed by you**: `heightMeans = topOfStandards`. The called H is the **overall height of the scaffold**, from the ground to the top of the standards. The top rail sits at the top rosette of the standards and the deck is 2 levels (1.0 m) below it. Lists lead with "Overall 8'-0" (asked 8') · deck 4'-9" · top rail 8'-0"".
 - **VERIFY**: base offsets are 0.45 m (rolling) and 0.30 m (stationary), measured from the ground to the base-collar rosette (level 0).
 - **VERIFY**: rosette pitch is 0.5 m. The mid-rail is at k+1 and the top rail at k+2. The lift height is 2.0 m.
-- Rounding is `nearest`. A stationary 8' therefore gets a deck at **7'-7"** (asked 8'), because the 0.30 m offset puts it between rosettes. `up` would give 9'-2".
+- Rounding is `nearest`. A stationary 8' is built **7'-7"** overall (asked 8'), because the 0.30 m offset puts it between rosettes. `up` would give 8'-1".
+- Overall height = base offset + the chosen standards stack. A combo that overshoots shows up as a taller overall height. Ranking already prefers zero overshoot.
+- **VERIFY, consequence of overall height**: an 8' tower has its deck at level 2, so its only lift (1.0 m) is "short" and, under the brief's rule, gets **no vertical diagonals**. Layher does make 1.0 m and 1.5 m bay-height diagonals (2681.xxx / 2682.xxx, catalogue p15).
+- **VERIFY, consequence of overall height**: the ratio still uses **deck** height, as the brief says. 5x4x16 rolling therefore comes out at 2.82:1 (deck 13'-0" ÷ 4'-7"), which is under 3:1, so it no longer trips the stabilizer warning. On overall height it would be 3.54:1.
 - The deck level is never below 1.
 - ft-in values are rounded to the nearest inch.
 - The standards stack is measured from the base-collar rosette and must reach the top-rail rosette exactly (`standardAboveTopRail = 0`). The base collar's own length is ignored. **VERIFY** whether the standards must stick up above the top rail.

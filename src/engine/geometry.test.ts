@@ -5,7 +5,8 @@ import type { BaySplit, Settings, TowerOptions } from './types';
 import { formatFtIn, ftToM } from './units';
 
 const d = loadSeed();
-const S = d.settings;
+// Level tests below are written for H = deck height; the overall-height default has its own suite.
+const S: Settings = { ...d.settings, heightMeans: 'deck' };
 const opts: TowerOptions = { accessType: 'ladder', accessAxis: 'W', spanAxis: 'L', gateType: 'gate', diagonalAccess: 'keep', standardsComboIndex: 0 };
 const one = (m: number, label: string): BaySplit => ({ bays: [m], labels: [label], total: m, target: m, exact: true });
 
@@ -120,5 +121,21 @@ describe('more ways on an exact size', () => {
     const so = baySplitOptions({ raw: '5', ft: 5, m: null }, d.sizeMap, S, true);
     expect(so.options[0]!.labels).toEqual(["5'"]);
     expect(so.options.slice(1).every((o) => o.bays.length > 1)).toBe(true);
+  });
+});
+
+describe('default: H = overall height (ground to top of standards)', () => {
+  it('8\' rolling → top rail at level 4 (8\'-0"), deck at level 2', () => {
+    const lv = computeLevels(ftToM(8), 'rolling', d.settings);
+    expect(d.settings.heightMeans).toBe('topOfStandards');
+    expect(lv.topRail).toBe(4);
+    expect(lv.deck).toBe(2);
+    expect(formatFtIn(lv.heightOf(lv.topRail))).toBe(`8'-0"`);
+    expect(formatFtIn(lv.heightOf(lv.deck))).toBe(`4'-9"`);
+  });
+
+  it('16\' rolling → top rail level 9, deck level 7', () => {
+    const lv = computeLevels(ftToM(16), 'rolling', d.settings);
+    expect([lv.deck, lv.topRail]).toEqual([7, 9]);
   });
 });

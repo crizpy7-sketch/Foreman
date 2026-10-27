@@ -14,7 +14,7 @@ import {
   setQty,
   swapPart,
 } from './overrides';
-import { callout, seed } from './testkit';
+import { callout, deckSeed as seed } from './testkit';
 import { enumerateVariants } from './variants';
 
 const d = seed();
