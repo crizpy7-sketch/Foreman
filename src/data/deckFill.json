@@ -1,0 +1,9 @@
+[
+  { "bayWidth": 0.73, "pieces": [{ "width": 0.32, "count": 2 }], "verify": true },
+  { "bayWidth": 1.09, "pieces": [{ "width": 0.32, "count": 3 }], "verify": true },
+  { "bayWidth": 1.40, "pieces": [{ "width": 0.32, "count": 4 }], "verify": true },
+  { "bayWidth": 1.57, "pieces": [{ "width": 0.32, "count": 4 }, { "width": 0.19, "count": 1 }], "verify": true },
+  { "bayWidth": 2.07, "pieces": [{ "width": 0.32, "count": 6 }], "verify": true },
+  { "bayWidth": 2.57, "pieces": [{ "width": 0.32, "count": 7 }, { "width": 0.19, "count": 1 }], "verify": true },
+  { "bayWidth": 3.07, "pieces": [{ "width": 0.32, "count": 9 }], "verify": true }
+]
