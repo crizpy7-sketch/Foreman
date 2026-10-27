@@ -62,10 +62,10 @@ export function partLabel(part: Part, sizeMap: SizeMapEntry[], tol: number): { l
   const nom = (m: number) => nominalFor(m, sizeMap, tol);
   if (part.size === null) return { label: part.name, metric: '' };
   if (part.category === 'deck' || part.category === 'accessDeck') {
-    // Decks: "U-steel deck 0.32 × 5'" with metric "(0.32 × 1.57)"
+    // Decks are called by length: "Deck 5'", metric small "(0.32 × 1.57)" = width × length.
     const w = part.size2 ?? 0;
     return {
-      label: `${part.name} ${formatM(w)} × ${part.nominal ?? nom(part.size)}`,
+      label: `${part.name} ${part.nominal ?? nom(part.size)}`,
       metric: `${formatM(w)} × ${formatM(part.size)}`,
     };
   }

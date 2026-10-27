@@ -87,8 +87,16 @@ export function computeVariant(callout: Callout, d: EngineData, spec: VariantSpe
   const deck = formatFtIn(tower.deckHeight);
   const top = formatFtIn(tower.topRailHeight);
   const overall = overallHeight !== null ? formatFtIn(overallHeight) : '?';
+  // Legs as the yard says them, from the standards' nominal names: "8' (2.50 m)", "10'+7' (5.00 m)".
+  const legName = (m: number) => {
+    const p = d.catalog.find((x) => x.category === 'standard' && x.size !== null && Math.abs(x.size - m) < 1e-6);
+    return p?.nominal ?? formatFtIn(m);
+  };
+  const legs = chosen ? `${chosen.pieces.map(legName).join('+')} (${formatM(chosen.total)} m)` : '?';
   const heightLine =
-    d.settings.heightMeans === 'topOfStandards'
+    d.settings.heightMeans === 'legs'
+      ? `Legs ${legs}, ${asked} · deck ${deck} · top rail ${top} · overall ${overall}`
+      : d.settings.heightMeans === 'topOfStandards'
       ? `Overall ${overall} (${asked}) · deck ${deck} · top rail ${top}`
       : d.settings.heightMeans === 'topRail'
         ? `Top rail ${top} (${asked}) · deck ${deck} · overall ${overall}`

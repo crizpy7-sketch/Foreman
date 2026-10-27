@@ -26,9 +26,13 @@ out.push(part({ id: 'base-jack', name: 'Base plate spindle 0.60', category: 'bas
   notes: 'Layher: stock item. VERIFY length used: 0.40 = 4001.040 (2.9 kg); reinforced 0.80 = 4002.080 (4.9 kg).' }));
 out.push(part({ id: 'base-collar', name: 'Base collar', category: 'baseCollar', art: '2602.000', kg: 1.4, page: 5, notes: 'Layher: stock item. Tower collar (extended) = 2660.000, 2.2 kg.' }));
 
+// Yard names for legs: nearest whole foot ("a 10 ft scaffold has a 10 ft leg" = 3.0 m).
+const LEG_NAMES = { 0.5: "2'", 1.0: "3'", 1.5: "5'", 2.0: "7'", 2.5: "8'", 3.0: "10'", 4.0: "13'" };
+
 // p7 — standards with spigot, 50 cm rosette spacing, LW
 for (const r of rows([[0.5, '2617.050', 2.7], [1.0, '2617.100', 5.0], [1.5, '2617.150', 7.1], [2.0, '2617.200', 9.6], [2.5, '2617.250', 11.3], [3.0, '2617.300', 13.6], [4.0, '2617.400', 17.8]]))
-  out.push(part({ id: `standard-${r.size.toFixed(1)}`, name: 'Standard', category: 'standard', size: r.size, art: r.art, kg: r.kg, page: 7, notes: 'Standard with spigot, 50 cm rosette spacing, LW. Layher: stock item.' }));
+  out.push(part({ id: `standard-${r.size.toFixed(1)}`, name: 'Standard', category: 'standard', size: r.size, nominal: LEG_NAMES[r.size], art: r.art, kg: r.kg, page: 7,
+    notes: 'Standard with spigot, 50 cm rosette spacing, LW. Layher: stock item. Yard name = nearest foot (a 10 ft leg = 3.0 m).' }));
 
 // p11 — ledgers LW
 for (const r of rows([[0.73, '2601.073', 2.9], [1.09, '2601.109', 4.0], [1.4, '2601.140', 5.0], [1.57, '2601.157', 5.5], [2.07, '2601.207', 7.0], [2.57, '2601.257', 8.7], [3.07, '2601.307', 10.1]]))
@@ -75,15 +79,15 @@ for (const r of rows([[0.73, '2683.073', 7.1], [1.09, '2683.109', 7.4], [1.4, '2
 
 // p23 — steel decks, U-application
 for (const r of rows([[0.73, '3883.073', 5.6], [1.09, '3883.109', 7.7], [1.4, '3883.140', 9.3], [1.57, '3883.157', 10.5], [2.07, '3883.207', 13.4], [2.57, '3883.257', 16.4], [3.07, '3883.307', 19.3]]))
-  out.push(part({ id: `deck-0.32x${f(r.size)}`, name: 'U-steel deck', category: 'deck', size: r.size, size2: 0.32, art: r.art, kg: r.kg, page: 23, active: r.size !== 1.4,
+  out.push(part({ id: `deck-0.32x${f(r.size)}`, name: 'Deck', category: 'deck', size: r.size, size2: 0.32, art: r.art, kg: r.kg, page: 23, active: r.size !== 1.4,
     notes: `Steel LW deck, U-application, 0.32 wide. Layher: stock item.${r.size === 1.4 ? ' Off until you confirm the yard stocks it.' : ''}` }));
 for (const r of rows([[0.73, '3801.073', 5.1], [1.09, '3801.109', 6.4], [1.4, '3801.140', 8.0], [1.57, '3801.157', 8.5], [2.07, '3801.207', 10.2], [2.57, '3801.257', 13.2], [3.07, '3801.307', 15.3]]))
-  out.push(part({ id: `deck-0.19x${f(r.size)}`, name: 'U-steel deck', category: 'deck', size: r.size, size2: 0.19, art: r.art, kg: r.kg, page: 23, active: false,
+  out.push(part({ id: `deck-0.19x${f(r.size)}`, name: 'Narrow deck', category: 'deck', size: r.size, size2: 0.19, art: r.art, kg: r.kg, page: 23, active: false,
     notes: 'Steel deck, U-application, 0.19 wide. Layher: stock item. Off until you confirm the yard stocks it.' }));
 
 // p25 — access decks aluminium with hatch, U-application, 0.61 wide (no 0.73/1.09/1.40 in U-application)
 for (const r of rows([[1.57, '3851.157', 15.1, 'P'], [2.07, '3851.207', 17.0, 'W'], [2.57, '3851.257', 20.0, 'W'], [3.07, '3851.307', 24.5, 'W']]))
-  out.push(part({ id: `accessdeck-${f(r.size)}`, name: 'Access deck w/ hatch', category: 'accessDeck', size: r.size, size2: 0.61, art: r.art, kg: r.kg, page: 25, replacesDecks: 2, active: false,
+  out.push(part({ id: `accessdeck-${f(r.size)}`, name: 'Hatch deck', category: 'accessDeck', size: r.size, size2: 0.61, art: r.art, kg: r.kg, page: 25, replacesDecks: 2, active: false,
     notes: `Access deck aluminium, U-application, 0.61 wide. ${stock(r.st)} Off until you confirm the yard stocks it. replacesDecks = 2 × 0.32 (VERIFY). Versions with integrated 2.00 m ladder exist for 2.57/3.07 (3852.257/.307).` }));
 
 // p27 — lift-off preventers (U) and access ladders (for hatch decks)

@@ -124,18 +124,22 @@ describe('more ways on an exact size', () => {
   });
 });
 
-describe('default: H = overall height (ground to top of standards)', () => {
-  it('8\' rolling → top rail at level 4 (8\'-0"), deck at level 2', () => {
-    const lv = computeLevels(ftToM(8), 'rolling', d.settings);
-    expect(d.settings.heightMeans).toBe('topOfStandards');
-    expect(lv.topRail).toBe(4);
-    expect(lv.deck).toBe(2);
-    expect(formatFtIn(lv.heightOf(lv.topRail))).toBe(`8'-0"`);
-    expect(formatFtIn(lv.heightOf(lv.deck))).toBe(`4'-9"`);
+describe('default: H = leg (standards) length — "a 10 ft scaffold has 10 ft legs"', () => {
+  it.each([
+    [10, 6, 4],
+    [8, 5, 3],
+    [6, 4, 2],
+    [16, 10, 8],
+  ])('%s\' legs → top rail level %s, deck level %s (base offset not counted)', (ft, top, deck) => {
+    expect(d.settings.heightMeans).toBe('legs');
+    for (const type of ['rolling', 'stationary'] as const) {
+      const lv = computeLevels(ftToM(ft), type, d.settings);
+      expect([lv.topRail, lv.deck]).toEqual([top, deck]);
+    }
   });
 
-  it('16\' rolling → top rail level 9, deck level 7', () => {
-    const lv = computeLevels(ftToM(16), 'rolling', d.settings);
-    expect([lv.deck, lv.topRail]).toEqual([7, 9]);
+  it('topOfStandards mode still measures from the ground', () => {
+    const lv = computeLevels(ftToM(8), 'rolling', { ...d.settings, heightMeans: 'topOfStandards' });
+    expect([lv.topRail, lv.deck]).toEqual([4, 2]);
   });
 });

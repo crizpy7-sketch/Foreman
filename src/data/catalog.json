@@ -56,7 +56,7 @@
     "category": "standard",
     "size": 0.5,
     "size2": null,
-    "nominal": null,
+    "nominal": "2'",
     "articleNo": "2617.050",
     "weightKg": 2.7,
     "yardLocation": "",
@@ -65,7 +65,7 @@
     "active": true,
     "verify": false,
     "source": "https://layher-content-prod.s3.eu-central-1.amazonaws.com/s3fs-public/2025-04/Layher-allround-catalogus-prijslijst-doc0228.pdf#page=7",
-    "notes": "Standard with spigot, 50 cm rosette spacing, LW. Layher: stock item."
+    "notes": "Standard with spigot, 50 cm rosette spacing, LW. Layher: stock item. Yard name = nearest foot (a 10 ft leg = 3.0 m)."
   },
   {
     "id": "standard-1.0",
@@ -73,7 +73,7 @@
     "category": "standard",
     "size": 1,
     "size2": null,
-    "nominal": null,
+    "nominal": "3'",
     "articleNo": "2617.100",
     "weightKg": 5,
     "yardLocation": "",
@@ -82,7 +82,7 @@
     "active": true,
     "verify": false,
     "source": "https://layher-content-prod.s3.eu-central-1.amazonaws.com/s3fs-public/2025-04/Layher-allround-catalogus-prijslijst-doc0228.pdf#page=7",
-    "notes": "Standard with spigot, 50 cm rosette spacing, LW. Layher: stock item."
+    "notes": "Standard with spigot, 50 cm rosette spacing, LW. Layher: stock item. Yard name = nearest foot (a 10 ft leg = 3.0 m)."
   },
   {
     "id": "standard-1.5",
@@ -90,7 +90,7 @@
     "category": "standard",
     "size": 1.5,
     "size2": null,
-    "nominal": null,
+    "nominal": "5'",
     "articleNo": "2617.150",
     "weightKg": 7.1,
     "yardLocation": "",
@@ -99,7 +99,7 @@
     "active": true,
     "verify": false,
     "source": "https://layher-content-prod.s3.eu-central-1.amazonaws.com/s3fs-public/2025-04/Layher-allround-catalogus-prijslijst-doc0228.pdf#page=7",
-    "notes": "Standard with spigot, 50 cm rosette spacing, LW. Layher: stock item."
+    "notes": "Standard with spigot, 50 cm rosette spacing, LW. Layher: stock item. Yard name = nearest foot (a 10 ft leg = 3.0 m)."
   },
   {
     "id": "standard-2.0",
@@ -107,7 +107,7 @@
     "category": "standard",
     "size": 2,
     "size2": null,
-    "nominal": null,
+    "nominal": "7'",
     "articleNo": "2617.200",
     "weightKg": 9.6,
     "yardLocation": "",
@@ -116,7 +116,7 @@
     "active": true,
     "verify": false,
     "source": "https://layher-content-prod.s3.eu-central-1.amazonaws.com/s3fs-public/2025-04/Layher-allround-catalogus-prijslijst-doc0228.pdf#page=7",
-    "notes": "Standard with spigot, 50 cm rosette spacing, LW. Layher: stock item."
+    "notes": "Standard with spigot, 50 cm rosette spacing, LW. Layher: stock item. Yard name = nearest foot (a 10 ft leg = 3.0 m)."
   },
   {
     "id": "standard-2.5",
@@ -124,7 +124,7 @@
     "category": "standard",
     "size": 2.5,
     "size2": null,
-    "nominal": null,
+    "nominal": "8'",
     "articleNo": "2617.250",
     "weightKg": 11.3,
     "yardLocation": "",
@@ -133,7 +133,7 @@
     "active": true,
     "verify": false,
     "source": "https://layher-content-prod.s3.eu-central-1.amazonaws.com/s3fs-public/2025-04/Layher-allround-catalogus-prijslijst-doc0228.pdf#page=7",
-    "notes": "Standard with spigot, 50 cm rosette spacing, LW. Layher: stock item."
+    "notes": "Standard with spigot, 50 cm rosette spacing, LW. Layher: stock item. Yard name = nearest foot (a 10 ft leg = 3.0 m)."
   },
   {
     "id": "standard-3.0",
@@ -141,7 +141,7 @@
     "category": "standard",
     "size": 3,
     "size2": null,
-    "nominal": null,
+    "nominal": "10'",
     "articleNo": "2617.300",
     "weightKg": 13.6,
     "yardLocation": "",
@@ -150,7 +150,7 @@
     "active": true,
     "verify": false,
     "source": "https://layher-content-prod.s3.eu-central-1.amazonaws.com/s3fs-public/2025-04/Layher-allround-catalogus-prijslijst-doc0228.pdf#page=7",
-    "notes": "Standard with spigot, 50 cm rosette spacing, LW. Layher: stock item."
+    "notes": "Standard with spigot, 50 cm rosette spacing, LW. Layher: stock item. Yard name = nearest foot (a 10 ft leg = 3.0 m)."
   },
   {
     "id": "standard-4.0",
@@ -158,7 +158,7 @@
     "category": "standard",
     "size": 4,
     "size2": null,
-    "nominal": null,
+    "nominal": "13'",
     "articleNo": "2617.400",
     "weightKg": 17.8,
     "yardLocation": "",
@@ -167,7 +167,7 @@
     "active": true,
     "verify": false,
     "source": "https://layher-content-prod.s3.eu-central-1.amazonaws.com/s3fs-public/2025-04/Layher-allround-catalogus-prijslijst-doc0228.pdf#page=7",
-    "notes": "Standard with spigot, 50 cm rosette spacing, LW. Layher: stock item."
+    "notes": "Standard with spigot, 50 cm rosette spacing, LW. Layher: stock item. Yard name = nearest foot (a 10 ft leg = 3.0 m)."
   },
   {
     "id": "ledger-0.73",
@@ -1072,7 +1072,7 @@
   },
   {
     "id": "deck-0.32x0.73",
-    "name": "U-steel deck",
+    "name": "Deck",
     "category": "deck",
     "size": 0.73,
     "size2": 0.32,
@@ -1089,7 +1089,7 @@
   },
   {
     "id": "deck-0.32x1.09",
-    "name": "U-steel deck",
+    "name": "Deck",
     "category": "deck",
     "size": 1.09,
     "size2": 0.32,
@@ -1106,7 +1106,7 @@
   },
   {
     "id": "deck-0.32x1.40",
-    "name": "U-steel deck",
+    "name": "Deck",
     "category": "deck",
     "size": 1.4,
     "size2": 0.32,
@@ -1123,7 +1123,7 @@
   },
   {
     "id": "deck-0.32x1.57",
-    "name": "U-steel deck",
+    "name": "Deck",
     "category": "deck",
     "size": 1.57,
     "size2": 0.32,
@@ -1140,7 +1140,7 @@
   },
   {
     "id": "deck-0.32x2.07",
-    "name": "U-steel deck",
+    "name": "Deck",
     "category": "deck",
     "size": 2.07,
     "size2": 0.32,
@@ -1157,7 +1157,7 @@
   },
   {
     "id": "deck-0.32x2.57",
-    "name": "U-steel deck",
+    "name": "Deck",
     "category": "deck",
     "size": 2.57,
     "size2": 0.32,
@@ -1174,7 +1174,7 @@
   },
   {
     "id": "deck-0.32x3.07",
-    "name": "U-steel deck",
+    "name": "Deck",
     "category": "deck",
     "size": 3.07,
     "size2": 0.32,
@@ -1191,7 +1191,7 @@
   },
   {
     "id": "deck-0.19x0.73",
-    "name": "U-steel deck",
+    "name": "Narrow deck",
     "category": "deck",
     "size": 0.73,
     "size2": 0.19,
@@ -1208,7 +1208,7 @@
   },
   {
     "id": "deck-0.19x1.09",
-    "name": "U-steel deck",
+    "name": "Narrow deck",
     "category": "deck",
     "size": 1.09,
     "size2": 0.19,
@@ -1225,7 +1225,7 @@
   },
   {
     "id": "deck-0.19x1.40",
-    "name": "U-steel deck",
+    "name": "Narrow deck",
     "category": "deck",
     "size": 1.4,
     "size2": 0.19,
@@ -1242,7 +1242,7 @@
   },
   {
     "id": "deck-0.19x1.57",
-    "name": "U-steel deck",
+    "name": "Narrow deck",
     "category": "deck",
     "size": 1.57,
     "size2": 0.19,
@@ -1259,7 +1259,7 @@
   },
   {
     "id": "deck-0.19x2.07",
-    "name": "U-steel deck",
+    "name": "Narrow deck",
     "category": "deck",
     "size": 2.07,
     "size2": 0.19,
@@ -1276,7 +1276,7 @@
   },
   {
     "id": "deck-0.19x2.57",
-    "name": "U-steel deck",
+    "name": "Narrow deck",
     "category": "deck",
     "size": 2.57,
     "size2": 0.19,
@@ -1293,7 +1293,7 @@
   },
   {
     "id": "deck-0.19x3.07",
-    "name": "U-steel deck",
+    "name": "Narrow deck",
     "category": "deck",
     "size": 3.07,
     "size2": 0.19,
@@ -1310,7 +1310,7 @@
   },
   {
     "id": "accessdeck-1.57",
-    "name": "Access deck w/ hatch",
+    "name": "Hatch deck",
     "category": "accessDeck",
     "size": 1.57,
     "size2": 0.61,
@@ -1327,7 +1327,7 @@
   },
   {
     "id": "accessdeck-2.07",
-    "name": "Access deck w/ hatch",
+    "name": "Hatch deck",
     "category": "accessDeck",
     "size": 2.07,
     "size2": 0.61,
@@ -1344,7 +1344,7 @@
   },
   {
     "id": "accessdeck-2.57",
-    "name": "Access deck w/ hatch",
+    "name": "Hatch deck",
     "category": "accessDeck",
     "size": 2.57,
     "size2": 0.61,
@@ -1361,7 +1361,7 @@
   },
   {
     "id": "accessdeck-3.07",
-    "name": "Access deck w/ hatch",
+    "name": "Hatch deck",
     "category": "accessDeck",
     "size": 3.07,
     "size2": 0.61,

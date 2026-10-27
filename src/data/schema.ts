@@ -73,7 +73,7 @@ export const ruleSchema = z.object({
 export const settingsSchema = z.object({
   defaultType: z.enum(['rolling', 'stationary']),
   pitch: len,
-  heightMeans: z.enum(['deck', 'topRail', 'topOfStandards']),
+  heightMeans: z.enum(['legs', 'deck', 'topRail', 'topOfStandards']),
   rounding: z.enum(['nearest', 'up', 'down']),
   baseOffsetRolling: z.number().nonnegative(),
   baseOffsetStationary: z.number().nonnegative(),

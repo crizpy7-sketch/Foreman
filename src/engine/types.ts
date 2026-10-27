@@ -6,7 +6,8 @@ export type AccessType = 'ladder' | 'hatch';
 export type Axis = 'L' | 'W';
 export type GateType = 'gate' | 'chain' | 'railsStay';
 export type DiagonalAccess = 'keep' | 'move' | 'omit';
-export type HeightMeans = 'deck' | 'topRail' | 'topOfStandards';
+/** What the called H measures. 'legs' = length of the standards ("a 10 ft scaffold has 10 ft legs"). */
+export type HeightMeans = 'legs' | 'deck' | 'topRail' | 'topOfStandards';
 export type RoundingMode = 'nearest' | 'up' | 'down';
 export type WeightUnit = 'lb' | 'kg';
 

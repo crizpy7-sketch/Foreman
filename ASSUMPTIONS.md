@@ -30,6 +30,7 @@ I couldn't reach Layher's English or US catalogue from this environment (blocked
 - **VERIFY**: outside ladders = steel scaffold ladders 2/3/4 m (1002.008/.012/.016). Aluminium 2.90/4.00 (1004.010/.014) are seeded off. Each ladder gets 1 ladder fixing device (0718.846); the count is unconfirmed.
 - **VERIFY**: the stabilizer and safety chain are generic. Neither is in the Allround catalogue.
 - **VERIFY**: access decks are **0.61 wide** and replace 2 × 0.32 decks. They exist only for spans of 1.57 and up, so a 4'-span hatch build is "not in catalog". Versions with an integrated ladder exist for 2.57/3.07 (3852.xxx) but aren't seeded.
+- Deck names: a "Deck 4'" is a standard 0.32 m (about 12½") wide steel deck, 1.40 m (4') long. A "Narrow deck 5'" is the 0.19 m (about 7½") wide filler deck, 1.57 m (5') long.
 - Brief-defined stock: 1.40 × 0.32 decks, all 0.19 decks and all access decks stay **off** until you confirm the yard stocks them. Layher makes them all.
 - **Gates**: Layher makes no gate wider than 0.73 (system) / 1.00 (metric), so the old generic 4'/5'/… gates are removed.
 
@@ -43,13 +44,11 @@ I couldn't reach Layher's English or US catalogue from this environment (blocked
 - Words the parser doesn't understand are shown as "Ignored: …" rather than causing an error.
 
 ## Heights and levels
-- **Confirmed by you**: `heightMeans = topOfStandards`. The called H is the **overall height of the scaffold**, from the ground to the top of the standards. The top rail sits at the top rosette of the standards and the deck is 2 levels (1.0 m) below it. Lists lead with "Overall 8'-0" (asked 8') · deck 4'-9" · top rail 8'-0"".
+- **Confirmed by you**: `heightMeans = legs`. The called H is the **leg (standards) length**: "a 10 ft scaffold has a 10 ft leg". The castor or base jack underneath doesn't count. H picks the top-rail rosette (round(H ÷ 0.5 m)), the standards reach it, and the deck is 2 levels (1.0 m) below. 10' → 3.0 m legs, 8' → 2.5 m, 6' → 2.0 m, 16' → 5.0 m stack. Lists lead with "Legs 8' (2.50 m), asked 8' · deck … · top rail … · overall …". Base offsets now only change the heights shown above ground, not the pick list.
+- **VERIFY**: yard names for legs = nearest foot: 0.5 = 2', 1.0 = 3', 1.5 = 5', 2.0 = 7', 2.5 = 8', 3.0 = 10', 4.0 = 13'. Only 10' = 3.0 m is confirmed. 2.0 m (6'-7") could be what you call 6' or 7'.
 - **VERIFY**: base offsets are 0.45 m (rolling) and 0.30 m (stationary), measured from the ground to the base-collar rosette (level 0).
 - **VERIFY**: rosette pitch is 0.5 m. The mid-rail is at k+1 and the top rail at k+2. The lift height is 2.0 m.
-- Rounding is `nearest`. A stationary 8' is built **7'-7"** overall (asked 8'), because the 0.30 m offset puts it between rosettes. `up` would give 8'-1".
-- Overall height = base offset + the chosen standards stack. A combo that overshoots shows up as a taller overall height. Ranking already prefers zero overshoot.
-- **VERIFY, consequence of overall height**: an 8' tower has its deck at level 2, so its only lift (1.0 m) is "short" and, under the brief's rule, gets **no vertical diagonals**. Layher does make 1.0 m and 1.5 m bay-height diagonals (2681.xxx / 2682.xxx, catalogue p15).
-- **VERIFY, consequence of overall height**: the ratio still uses **deck** height, as the brief says. 5x4x16 rolling therefore comes out at 2.82:1 (deck 13'-0" ÷ 4'-7"), which is under 3:1, so it no longer trips the stabilizer warning. On overall height it would be 3.54:1.
+- Rounding is `nearest` (an 8' call = 2.438 m rounds to the 2.5 m leg).
 - The deck level is never below 1.
 - ft-in values are rounded to the nearest inch.
 - The standards stack is measured from the base-collar rosette and must reach the top-rail rosette exactly (`standardAboveTopRail = 0`). The base collar's own length is ignored. **VERIFY** whether the standards must stick up above the top rail.

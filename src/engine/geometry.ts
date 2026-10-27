@@ -93,7 +93,9 @@ export function computeLevels(askedHeight: number, type: ScaffoldType, s: Settin
   const p = s.pitch;
   const o = baseOffset(type, s);
   let k: number;
-  if (s.heightMeans === 'deck') k = roundBy((askedHeight - o) / p, s.rounding);
+  // legs: H is the standards length, measured from the base collar, so the base offset doesn't count.
+  if (s.heightMeans === 'legs') k = roundBy((askedHeight - s.standardAboveTopRail) / p, s.rounding) - s.topRailOffset;
+  else if (s.heightMeans === 'deck') k = roundBy((askedHeight - o) / p, s.rounding);
   else if (s.heightMeans === 'topRail') k = roundBy((askedHeight - o) / p, s.rounding) - s.topRailOffset;
   else k = roundBy((askedHeight - o - s.standardAboveTopRail) / p, s.rounding) - s.topRailOffset;
   k = Math.max(k, 1);

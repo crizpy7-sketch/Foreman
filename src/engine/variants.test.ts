@@ -81,20 +81,23 @@ describe('labels', () => {
   });
 });
 
-describe('overall height', () => {
-  it('leads with overall height and reports ground to top of the chosen standards', () => {
+describe('height = legs', () => {
+  it.each([
+    ['10', 'standard-3.0', "Legs 10' (3.00 m), asked 10'"],
+    ['8', 'standard-2.5', "Legs 8' (2.50 m), asked 8'"],
+    ['6', 'standard-2.0', "Legs 7' (2.00 m), asked 6'"],
+  ])('a %s ft scaffold gets %s legs', (h, std, line) => {
     const d = seed();
-    const v = enumerateVariants(callout('5x4x8 rolling', d), d).variants[0]!;
-    expect(v.notes[0]).toBe(`Overall 8'-0" (asked 8') · deck 4'-9" · top rail 8'-0"`);
-    expect(v.overallHeight).toBeCloseTo(0.45 + 2.0);
-    expect(qtys(v)['standard-2.0']).toBe(4);
+    const v = enumerateVariants(callout(`5x4x${h} rolling`, d), d).variants[0]!;
+    expect(qtys(v)[std]).toBe(4);
+    expect(v.notes[0]!.startsWith(line)).toBe(true);
   });
 
-  it('5x4x16 rolling: deck 13\'-0", ratio 2.82:1 — under the 3:1 limit, no stabilizers', () => {
+  it('5x4x16 rolling: 5.0 m legs, deck over 3:1 → stabilizers', () => {
     const d = seed();
     const v = enumerateVariants(callout('5x4x16 rolling', d), d).variants[0]!;
-    expect(v.notes[0]).toBe(`Overall 16'-3" (asked 16') · deck 13'-0" · top rail 16'-3"`);
-    expect(v.tower.overRatio).toBe(false);
-    expect(qtys(v)['stabilizer']).toBeUndefined();
+    expect(v.standardsCombos[0]!.total).toBe(5);
+    expect(v.tower.overRatio).toBe(true);
+    expect(qtys(v)['stabilizer']).toBe(4);
   });
 });

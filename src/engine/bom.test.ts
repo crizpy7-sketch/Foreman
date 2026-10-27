@@ -137,7 +137,7 @@ describe('rule settings move the list', () => {
   it('inactive parts are never chosen — variant becomes not possible', () => {
     const v = run('5x4x8 rolling', { spanAxis: 'W' });
     expect(v.possible).toBe(false);
-    expect(v.missingParts.join()).toMatch(/0\.32 × 4' \(0\.32 × 1\.40\) — inactive/);
+    expect(v.missingParts.join()).toMatch(/Deck 4' \(0\.32 × 1\.40\) — inactive/);
     expect(v.bom.lines.some((l) => l.partId === 'deck-0.32x1.40')).toBe(false);
   });
 
